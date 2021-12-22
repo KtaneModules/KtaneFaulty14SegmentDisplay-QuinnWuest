@@ -78,16 +78,13 @@ public class Faulty14SegmentDisplayScript : MonoBehaviour
     private void Start()
     {
         _moduleId = _moduleIdCounter++;
-        _currentRSequenceIx = Rnd.Range(0, 26);
-        _currentGSequenceIx = Rnd.Range(0, 26);
-        _currentBSequenceIx = Rnd.Range(0, 26);
-        _rSegPositions = Enumerable.Range(0, 14).ToArray();
-        _gSegPositions = Enumerable.Range(0, 14).ToArray();
-        _bSegPositions = Enumerable.Range(0, 14).ToArray();
-
-        _rSegPositions.Shuffle();
-        _gSegPositions.Shuffle();
-        _bSegPositions.Shuffle();
+        var shuff = Enumerable.Range(0, 26).ToArray().Shuffle().Take(3).ToArray();
+        _currentRSequenceIx = shuff[0];
+        _currentGSequenceIx = shuff[1];
+        _currentBSequenceIx = shuff[2];
+        _rSegPositions = Enumerable.Range(0, 14).ToArray().Shuffle();
+        _gSegPositions = Enumerable.Range(0, 14).ToArray().Shuffle();
+        _bSegPositions = Enumerable.Range(0, 14).ToArray().Shuffle();
 
         _cycleSequence = StartCoroutine(CycleSequence());
         Debug.LogFormat("[Faulty 14 Segment Display #{0}] Shuffled red segment order: {1}", _moduleId, _rSegPositions.Select(i => i + 1).Join(" "));
