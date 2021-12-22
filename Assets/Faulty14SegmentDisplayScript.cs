@@ -379,10 +379,10 @@ public class Faulty14SegmentDisplayScript : MonoBehaviour
                 continue;
             }
 
-            if ((m = Regex.Match(cmd, @"^\s*(left|(?<r>right))(\s+(?<amt>\d+))?\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)).Success)
+            if ((m = Regex.Match(cmd, @"^\s*(left|(?<r>right))(?<amtopt>\s+(?<amt>\d+))?\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)).Success)
             {
-                int amount;
-                if (!int.TryParse(m.Groups["amt"].Value, out amount) || amount < 1 || amount > 26)
+                int amount = 1;
+                if (m.Groups["amtopt"].Success && (!int.TryParse(m.Groups["amt"].Value, out amount) || amount < 1 || amount > 26))
                 {
                     yield return string.Format("sendtochaterror “{0}” is an invalid amount by which to move left or right (must be 1–26).", m.Groups["amt"].Value);
                     yield break;
