@@ -328,6 +328,7 @@ public class Faulty14SegmentDisplayScript : MonoBehaviour
         }
         _moduleSolved = true;
         Module.HandlePass();
+        Audio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.CorrectChime, transform);
         for (int i = 0; i < SegmentObjs.Length; i++)
             SegmentObjs[i].GetComponent<MeshRenderer>().material = SegmentMats[dashSegs[i] ? 2 : 0];
     }
