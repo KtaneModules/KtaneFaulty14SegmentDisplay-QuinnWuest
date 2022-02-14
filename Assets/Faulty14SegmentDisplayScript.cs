@@ -12,6 +12,7 @@ public class Faulty14SegmentDisplayScript : MonoBehaviour
     public KMAudio Audio;
     public KMBombModule Module;
     public KMBombInfo BombInfo;
+    public KMColorblindMode ColorblindMode;
 
     public KMSelectable[] SegmentSels;
     public KMSelectable[] ColorSels;
@@ -75,9 +76,18 @@ public class Faulty14SegmentDisplayScript : MonoBehaviour
     private bool _segIsSelected;
     private bool _isAnimating;
 
+    public GameObject ColorblindParent;
+    public TextMesh[] ColorblindSegTexts;
+    public TextMesh ColorblindCurrentColor;
+    public TextMesh[] ColorblindPickColor;
+    private bool _colorblindMode;
+
     private void Start()
     {
         _moduleId = _moduleIdCounter++;
+        _colorblindMode = ColorblindMode.ColorblindModeActive;
+        SetColorblindMode(_colorblindMode);
+
         var shuff = Enumerable.Range(0, 26).ToArray().Shuffle().Take(3).ToArray();
         _currentRSequenceIx = shuff[0];
         _currentGSequenceIx = shuff[1];
@@ -124,10 +134,12 @@ public class Faulty14SegmentDisplayScript : MonoBehaviour
                     _currentGSequenceIx = (_currentGSequenceIx + 25) % 26;
                     _currentBSequenceIx = (_currentBSequenceIx + 25) % 26;
                     for (int i = 0; i < SegmentObjs.Length; i++)
-                        SegmentObjs[i].GetComponent<MeshRenderer>().material = SegmentMats[
-                            (_segmentArragements[_currentRSequenceIx][_rSegPositions[i]] ? 4 : 0) +
-                            (_segmentArragements[_currentGSequenceIx][_gSegPositions[i]] ? 2 : 0) +
-                            (_segmentArragements[_currentBSequenceIx][_bSegPositions[i]] ? 1 : 0)];
+                    {
+                        var curVal = (_segmentArragements[_currentRSequenceIx][_rSegPositions[i]] ? 4 : 0) + (_segmentArragements[_currentGSequenceIx][_gSegPositions[i]] ? 2 : 0) + (_segmentArragements[_currentBSequenceIx][_bSegPositions[i]] ? 1 : 0);
+                        SegmentObjs[i].GetComponent<MeshRenderer>().material = SegmentMats[curVal];
+                        ColorblindSegTexts[i].text = "KBGCRMYW"[curVal].ToString();
+                        ColorblindSegTexts[i].color = (curVal == 0 || curVal == 1) ? new Color(1, 1, 1) : new Color(0, 0, 0);
+                    }
                 }
             }
             return false;
@@ -144,10 +156,12 @@ public class Faulty14SegmentDisplayScript : MonoBehaviour
                     _currentGSequenceIx = (_currentGSequenceIx + 1) % 26;
                     _currentBSequenceIx = (_currentBSequenceIx + 1) % 26;
                     for (int i = 0; i < SegmentObjs.Length; i++)
-                        SegmentObjs[i].GetComponent<MeshRenderer>().material = SegmentMats[
-                            (_segmentArragements[_currentRSequenceIx][_rSegPositions[i]] ? 4 : 0) +
-                            (_segmentArragements[_currentGSequenceIx][_gSegPositions[i]] ? 2 : 0) +
-                            (_segmentArragements[_currentBSequenceIx][_bSegPositions[i]] ? 1 : 0)];
+                    {
+                        var curVal = (_segmentArragements[_currentRSequenceIx][_rSegPositions[i]] ? 4 : 0) + (_segmentArragements[_currentGSequenceIx][_gSegPositions[i]] ? 2 : 0) + (_segmentArragements[_currentBSequenceIx][_bSegPositions[i]] ? 1 : 0);
+                        SegmentObjs[i].GetComponent<MeshRenderer>().material = SegmentMats[curVal];
+                        ColorblindSegTexts[i].text = "KBGCRMYW"[curVal].ToString();
+                        ColorblindSegTexts[i].color = (curVal == 0 || curVal == 1) ? new Color(1, 1, 1) : new Color(0, 0, 0);
+                    }
                 }
             }
             return false;
@@ -160,6 +174,11 @@ public class Faulty14SegmentDisplayScript : MonoBehaviour
             SegmentSels[i].OnInteract += SegmentPress(i);
 
         SubmitSel.OnInteract += SubmitPress;
+    }
+
+    private void SetColorblindMode(bool mode)
+    {
+        ColorblindParent.SetActive(mode);
     }
 
     private bool SubmitPress()
@@ -206,6 +225,7 @@ public class Faulty14SegmentDisplayScript : MonoBehaviour
             {
                 _currentSelectedColor = color;
                 PickerLight.GetComponent<MeshRenderer>().material = PickerMats[_currentSelectedColor];
+                ColorblindCurrentColor.text = "RGB"[_currentSelectedColor].ToString();
             }
             return false;
         };
@@ -261,10 +281,12 @@ public class Faulty14SegmentDisplayScript : MonoBehaviour
                 _segIsSelected = false;
             }
             for (int i = 0; i < SegmentObjs.Length; i++)
-                SegmentObjs[i].GetComponent<MeshRenderer>().material = SegmentMats[
-                    (_segmentArragements[_currentRSequenceIx][_rSegPositions[i]] ? 4 : 0) +
-                    (_segmentArragements[_currentGSequenceIx][_gSegPositions[i]] ? 2 : 0) +
-                    (_segmentArragements[_currentBSequenceIx][_bSegPositions[i]] ? 1 : 0)];
+            {
+                var curVal = (_segmentArragements[_currentRSequenceIx][_rSegPositions[i]] ? 4 : 0) + (_segmentArragements[_currentGSequenceIx][_gSegPositions[i]] ? 2 : 0) + (_segmentArragements[_currentBSequenceIx][_bSegPositions[i]] ? 1 : 0);
+                SegmentObjs[i].GetComponent<MeshRenderer>().material = SegmentMats[curVal];
+                ColorblindSegTexts[i].text = "KBGCRMYW"[curVal].ToString();
+                ColorblindSegTexts[i].color = (curVal == 0 || curVal == 1) ? new Color(1, 1, 1) : new Color(0, 0, 0);
+            }
             return false;
         };
     }
@@ -274,10 +296,12 @@ public class Faulty14SegmentDisplayScript : MonoBehaviour
         while (!_moduleSolved)
         {
             for (int i = 0; i < SegmentObjs.Length; i++)
-                SegmentObjs[i].GetComponent<MeshRenderer>().material = SegmentMats[
-                    (_segmentArragements[_currentRSequenceIx][_rSegPositions[i]] ? 4 : 0) +
-                    (_segmentArragements[_currentGSequenceIx][_gSegPositions[i]] ? 2 : 0) +
-                    (_segmentArragements[_currentBSequenceIx][_bSegPositions[i]] ? 1 : 0)];
+            {
+                var curVal = (_segmentArragements[_currentRSequenceIx][_rSegPositions[i]] ? 4 : 0) + (_segmentArragements[_currentGSequenceIx][_gSegPositions[i]] ? 2 : 0) + (_segmentArragements[_currentBSequenceIx][_bSegPositions[i]] ? 1 : 0);
+                SegmentObjs[i].GetComponent<MeshRenderer>().material = SegmentMats[curVal];
+                ColorblindSegTexts[i].text = "KBGCRMYW"[curVal].ToString();
+                ColorblindSegTexts[i].color = (curVal == 0 || curVal == 1) ? new Color(1, 1, 1) : new Color(0, 0, 0);
+            }
             yield return new WaitForSeconds(0.5f);
             _currentRSequenceIx = (_currentRSequenceIx + 1) % 26;
             _currentGSequenceIx = (_currentGSequenceIx + 1) % 26;
@@ -301,6 +325,7 @@ public class Faulty14SegmentDisplayScript : MonoBehaviour
             StopCoroutine(_cycleSequence);
         for (int i = 0; i < SegmentObjs.Length; i++)
             SegmentObjs[i].GetComponent<MeshRenderer>().material = SegmentMats[0];
+        SetColorblindMode(false);
         var solveSegs = new bool[15][]
         {
             new bool[14] { true, true, false, false, false, false, false, false, true, false, false, false, false, true }, //C
@@ -333,8 +358,10 @@ public class Faulty14SegmentDisplayScript : MonoBehaviour
             SegmentObjs[i].GetComponent<MeshRenderer>().material = SegmentMats[dashSegs[i] ? 2 : 0];
     }
 
+    // Twitch Plays implemented by Timwi.
+
 #pragma warning disable 0414
-    private readonly string TwitchHelpMessage = "!{0} swap 1 14 [Swap segments 1 and 14] | !{0} red [Pick colors red/green/blue] | !{0} toggle [Pauses/resumes the cycle] | !{0} left/right <#> [Cycle left/right in the sequence, optionally with amount] | !{0} submit [Submit the answer] | Commands can be chained with commas and semicolons.";
+    private readonly string TwitchHelpMessage = "!{0} swap 1 14 [Swap segments 1 and 14] | !{0} red [Pick colors red/green/blue] | !{0} toggle [Pauses/resumes the cycle] | !{0} left/right <#> [Cycle left/right in the sequence, optionally with amount] | !{0} submit [Submit the answer] | !{0} colorblind | Commands can be chained with commas and semicolons.";
 #pragma warning restore 0414
 
     private abstract class TpCommand { }
@@ -346,10 +373,15 @@ public class Faulty14SegmentDisplayScript : MonoBehaviour
 
     private IEnumerator ProcessTwitchCommand(string command)
     {
-        // First, parse all of the commands and represent them as TpCommand objects
         var commandPieces = command.ToLowerInvariant().Split(';', ',');
         var commands = new List<TpCommand>();
         Match m;
+
+        if ((m = Regex.Match(command, @"^\s*colorblind\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)).Success)
+        {
+            _colorblindMode = !_colorblindMode;
+            SetColorblindMode(_colorblindMode);
+        }
 
         foreach (var cmd in commandPieces)
         {
@@ -404,7 +436,6 @@ public class Faulty14SegmentDisplayScript : MonoBehaviour
             yield break;
         }
 
-        // Next, execute the commands
         yield return null;
         foreach (var cmd in commands)
         {
