@@ -377,10 +377,12 @@ public class Faulty14SegmentDisplayScript : MonoBehaviour
         var commands = new List<TpCommand>();
         Match m;
 
-        if ((m = Regex.Match(command, @"^\s*colorblind\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)).Success)
+        if ((m = Regex.Match(command, @"^\s*colou?rblind\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)).Success || (m = Regex.Match(command, @"^\s*cb\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)).Success)
         {
+            yield return null;
             _colorblindMode = !_colorblindMode;
             SetColorblindMode(_colorblindMode);
+            yield break;
         }
 
         foreach (var cmd in commandPieces)
