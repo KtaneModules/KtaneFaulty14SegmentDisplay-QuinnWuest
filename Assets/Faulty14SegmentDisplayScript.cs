@@ -275,7 +275,7 @@ public class Faulty14SegmentDisplayScript : MonoBehaviour
                 }
                 var logSegs = new int[2] { seg, _currentSelectedSegment };
                 Array.Sort(logSegs);
-                Debug.LogFormat("[Faulty 14 Segment Displays #{0}] Swapped segments #{1} and #{2} on the {3} channel.", _moduleId, logSegs[0] + 1, logSegs[1] + 1, colorNames[_currentSelectedColor]);
+                Debug.LogFormat("[Faulty 14 Segment Display #{0}] Swapped segments #{1} and #{2} on the {3} channel.", _moduleId, logSegs[0] + 1, logSegs[1] + 1, colorNames[_currentSelectedColor]);
                 for (int i = 0; i < 14; i++)
                     SegmentBorderObjs[i].GetComponent<MeshRenderer>().material = SegmentMats[0];
                 _segIsSelected = false;
@@ -326,30 +326,32 @@ public class Faulty14SegmentDisplayScript : MonoBehaviour
         for (int i = 0; i < SegmentObjs.Length; i++)
             SegmentObjs[i].GetComponent<MeshRenderer>().material = SegmentMats[0];
         SetColorblindMode(false);
-        var solveSegs = new bool[15][]
-        {
-            new bool[14] { true, true, false, false, false, false, false, false, true, false, false, false, false, true }, //C
-            new bool[14] { true, true, false, false, false, true, false, false, true, false, false, false, true, true },   //O
-            new bool[14] { false, true, true, false, false, true, false, false, true, false, false, true, true, false },   //N
-            new bool[14] { true, true, false, false, false, false, false, true, true, false, false, false, true, true },   //G
-            new bool[14] { true, true, false, false, false, true, true, true, true, false, false, true, false, false },    //R
-            new bool[14] { true, true, false, false, false, true, true, true, true, false, false, false, true, false },    //A
-            new bool[14] { true, false, false, true, false, false, false, false, false, false, true, false, false, false },//T
-            new bool[14] { false, true, false, false, false, true, false, false, true, false, false, false, true, true },  //U
-            new bool[14] { false, true, false, false, false, false, false, false, true, false, false, false, false, true },//L
-            new bool[14] { true, true, false, false, false, true, true, true, true, false, false, false, true, false },    //A
-            new bool[14] { true, false, false, true, false, false, false, false, false, false, true, false, false, false },//T
-            new bool[14] { true, false, false, true, false, false, false, false, false, false, true, false, false, true }, //I
-            new bool[14] { true, true, false, false, false, true, false, false, true, false, false, false, true, true },   //O
-            new bool[14] { false, true, true, false, false, true, false, false, true, false, false, true, true, false },   //N
-            new bool[14] { true, true, false, false, false, false, true, true, false, false, false, false, true, true },   //S
-        };
+        var congratulations = new[] { 2, 14, 13, 6, 17, 0, 19, 20, 11, 0, 19, 8, 14, 13, 18 };
+        var mtndew = new int[] { 8, 26, 11, 14, 21, 4, 26, 12, 14, 20, 19, 0, 8, 13, 26, 3, 4, 22 };
+        var aprilFools = DateTime.Now.ToString("MM/dd") == "04/01";
         var dashSegs = new bool[14] { false, false, false, false, false, false, true, true, false, false, false, false, false, false };
-        for (int j = 0; j < solveSegs.Length; j++)
+        if (!aprilFools)
         {
-            for (int i = 0; i < SegmentObjs.Length; i++)
-                SegmentObjs[i].GetComponent<MeshRenderer>().material = SegmentMats[solveSegs[j][i] ? 2 : 0];
-            yield return new WaitForSeconds(0.15f);
+            for (int j = 0; j < congratulations.Length; j++)
+            {
+                for (int i = 0; i < SegmentObjs.Length; i++)
+                    SegmentObjs[i].GetComponent<MeshRenderer>().material = SegmentMats[_segmentArragements[congratulations[j]][i] ? 2 : 0];
+                yield return new WaitForSeconds(0.15f);
+            }
+        }
+        else
+        {
+            for (int j = 0; j < mtndew.Length; j++)
+            {
+                for (int i = 0; i < SegmentObjs.Length; i++)
+                {
+                    if (mtndew[j] == 26)
+                        SegmentObjs[i].GetComponent<MeshRenderer>().material = SegmentMats[dashSegs[i] ? 2 : 0];
+                    else
+                        SegmentObjs[i].GetComponent<MeshRenderer>().material = SegmentMats[_segmentArragements[mtndew[j]][i] ? 2 : 0];
+                }
+                yield return new WaitForSeconds(0.15f);
+            }
         }
         _moduleSolved = true;
         Module.HandlePass();
