@@ -34,32 +34,32 @@ public class Faulty14SegmentDisplayScript : MonoBehaviour
     private bool _moduleSolved;
 
     private static readonly bool[][] _segmentArragements = new bool[26][] {
-        new bool[14] { true, true, false, false, false, true, true, true, true, false, false, false, true, false },    //A
-        new bool[14] { true, false, false, true, false, true, false, true, false, false, true, false, true, true },    //B
-        new bool[14] { true, true, false, false, false, false, false, false, true, false, false, false, false, true }, //C
-        new bool[14] { true, false, false, true, false, true, false, false, false, false, true, false, true, true },   //D
-        new bool[14] { true, true, false, false, false, false, true, true, true, false, false, false, false, true },   //E
-        new bool[14] { true, true, false, false, false, false, true, true, true, false, false, false, false, false },  //F
-        new bool[14] { true, true, false, false, false, false, false, true, true, false, false, false, true, true },   //G
-        new bool[14] { false, true, false, false, false, true, true, true, true, false, false, false, true, false },   //H
-        new bool[14] { true, false, false, true, false, false, false, false, false, false, true, false, false, true }, //I
-        new bool[14] { false, false, false, false, false, true, false, false, true, false, false, false, true, true }, //J
-        new bool[14] { false, true, false, false, true, false, true, false, true, false, false, true, false, false },  //K
-        new bool[14] { false, true, false, false, false, false, false, false, true, false, false, false, false, true },//L
-        new bool[14] { false, true, true, false, true, true, false, false, true, false, false, false, true, false },   //M
-        new bool[14] { false, true, true, false, false, true, false, false, true, false, false, true, true, false },   //N
-        new bool[14] { true, true, false, false, false, true, false, false, true, false, false, false, true, true },   //O
-        new bool[14] { true, true, false, false, false, true, true, true, true, false, false, false, false, false },   //P
-        new bool[14] { true, true, false, false, false, true, false, false, true, false, false, true, true, true },    //Q
-        new bool[14] { true, true, false, false, false, true, true, true, true, false, false, true, false, false },    //R
-        new bool[14] { true, true, false, false, false, false, true, true, false, false, false, false, true, true },   //S
-        new bool[14] { true, false, false, true, false, false, false, false, false, false, true, false, false, false },//T
-        new bool[14] { false, true, false, false, false, true, false, false, true, false, false, false, true, true },  //U
-        new bool[14] { false, true, false, false, true, false, false, false, true, true, false, false, false, false }, //V
-        new bool[14] { false, true, false, false, false, true, false, false, true, true, false, true, true, false },   //W
-        new bool[14] { false, false, true, false, true, false, false, false, false, true, false, true, false, false }, //X
-        new bool[14] { false, false, true, false, true, false, false, false, false, false, true, false, false, false },//Y
-        new bool[14] { true, false, false, false, true, false, false, false, false, true, false, false, false, true } };//Z
+        new bool[14] { true, true, false, false, false, true, true, true, true, false, false, false, true, false },      //A
+        new bool[14] { true, false, false, true, false, true, false, true, false, false, true, false, true, true },      //B
+        new bool[14] { true, true, false, false, false, false, false, false, true, false, false, false, false, true },   //C
+        new bool[14] { true, false, false, true, false, true, false, false, false, false, true, false, true, true },     //D
+        new bool[14] { true, true, false, false, false, false, true, true, true, false, false, false, false, true },     //E
+        new bool[14] { true, true, false, false, false, false, true, true, true, false, false, false, false, false },    //F
+        new bool[14] { true, true, false, false, false, false, false, true, true, false, false, false, true, true },     //G
+        new bool[14] { false, true, false, false, false, true, true, true, true, false, false, false, true, false },     //H
+        new bool[14] { true, false, false, true, false, false, false, false, false, false, true, false, false, true },   //I
+        new bool[14] { false, false, false, false, false, true, false, false, true, false, false, false, true, true },   //J
+        new bool[14] { false, true, false, false, true, false, true, false, true, false, false, true, false, false },    //K
+        new bool[14] { false, true, false, false, false, false, false, false, true, false, false, false, false, true },  //L
+        new bool[14] { false, true, true, false, true, true, false, false, true, false, false, false, true, false },     //M
+        new bool[14] { false, true, true, false, false, true, false, false, true, false, false, true, true, false },     //N
+        new bool[14] { true, true, false, false, false, true, false, false, true, false, false, false, true, true },     //O
+        new bool[14] { true, true, false, false, false, true, true, true, true, false, false, false, false, false },     //P
+        new bool[14] { true, true, false, false, false, true, false, false, true, false, false, true, true, true },      //Q
+        new bool[14] { true, true, false, false, false, true, true, true, true, false, false, true, false, false },      //R
+        new bool[14] { true, true, false, false, false, false, true, true, false, false, false, false, true, true },     //S
+        new bool[14] { true, false, false, true, false, false, false, false, false, false, true, false, false, false },  //T
+        new bool[14] { false, true, false, false, false, true, false, false, true, false, false, false, true, true },    //U
+        new bool[14] { false, true, false, false, true, false, false, false, true, true, false, false, false, false },   //V
+        new bool[14] { false, true, false, false, false, true, false, false, true, true, false, true, true, false },     //W
+        new bool[14] { false, false, true, false, true, false, false, false, false, true, false, true, false, false },   //X
+        new bool[14] { false, false, true, false, true, false, false, false, false, false, true, false, false, false },  //Y
+        new bool[14] { true, false, false, false, true, false, false, false, false, true, false, false, false, true } }; //Z
 
     private int _currentRSequenceIx;
     private int _currentGSequenceIx;
@@ -104,21 +104,20 @@ public class Faulty14SegmentDisplayScript : MonoBehaviour
         PlayPauseSel.OnInteract += delegate ()
         {
             Audio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.ButtonPress, transform);
-            if (!_moduleSolved)
+            if (_moduleSolved || _isAnimating)
+                return false;
+            if (_isCycling)
             {
-                if (_isCycling)
-                {
-                    if (_cycleSequence != null)
-                        StopCoroutine(_cycleSequence);
-                    _isCycling = false;
-                    PlayPauseText.text = "PLAY";
-                }
-                else
-                {
-                    _cycleSequence = StartCoroutine(CycleSequence());
-                    _isCycling = true;
-                    PlayPauseText.text = "PAUSE";
-                }
+                if (_cycleSequence != null)
+                    StopCoroutine(_cycleSequence);
+                _isCycling = false;
+                PlayPauseText.text = "PLAY";
+            }
+            else
+            {
+                _cycleSequence = StartCoroutine(CycleSequence());
+                _isCycling = true;
+                PlayPauseText.text = "PAUSE";
             }
             return false;
         };
@@ -126,21 +125,17 @@ public class Faulty14SegmentDisplayScript : MonoBehaviour
         LeftSel.OnInteract += delegate ()
         {
             Audio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.ButtonPress, transform);
-            if (!_moduleSolved)
+            if (_moduleSolved || _isCycling)
+                return false;
+            _currentRSequenceIx = (_currentRSequenceIx + 25) % 26;
+            _currentGSequenceIx = (_currentGSequenceIx + 25) % 26;
+            _currentBSequenceIx = (_currentBSequenceIx + 25) % 26;
+            for (int i = 0; i < SegmentObjs.Length; i++)
             {
-                if (!_isCycling)
-                {
-                    _currentRSequenceIx = (_currentRSequenceIx + 25) % 26;
-                    _currentGSequenceIx = (_currentGSequenceIx + 25) % 26;
-                    _currentBSequenceIx = (_currentBSequenceIx + 25) % 26;
-                    for (int i = 0; i < SegmentObjs.Length; i++)
-                    {
-                        var curVal = (_segmentArragements[_currentRSequenceIx][_rSegPositions[i]] ? 4 : 0) + (_segmentArragements[_currentGSequenceIx][_gSegPositions[i]] ? 2 : 0) + (_segmentArragements[_currentBSequenceIx][_bSegPositions[i]] ? 1 : 0);
-                        SegmentObjs[i].GetComponent<MeshRenderer>().material = SegmentMats[curVal];
-                        ColorblindSegTexts[i].text = "KBGCRMYW"[curVal].ToString();
-                        ColorblindSegTexts[i].color = (curVal == 0 || curVal == 1) ? new Color(1, 1, 1) : new Color(0, 0, 0);
-                    }
-                }
+                var curVal = (_segmentArragements[_currentRSequenceIx][_rSegPositions[i]] ? 4 : 0) + (_segmentArragements[_currentGSequenceIx][_gSegPositions[i]] ? 2 : 0) + (_segmentArragements[_currentBSequenceIx][_bSegPositions[i]] ? 1 : 0);
+                SegmentObjs[i].GetComponent<MeshRenderer>().material = SegmentMats[curVal];
+                ColorblindSegTexts[i].text = "KBGCRMYW"[curVal].ToString();
+                ColorblindSegTexts[i].color = (curVal == 0 || curVal == 1) ? new Color(1, 1, 1) : new Color(0, 0, 0);
             }
             return false;
         };
@@ -148,21 +143,17 @@ public class Faulty14SegmentDisplayScript : MonoBehaviour
         RightSel.OnInteract += delegate ()
         {
             Audio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.ButtonPress, transform);
-            if (!_moduleSolved)
+            if (_moduleSolved || _isCycling)
+                return false;
+            _currentRSequenceIx = (_currentRSequenceIx + 1) % 26;
+            _currentGSequenceIx = (_currentGSequenceIx + 1) % 26;
+            _currentBSequenceIx = (_currentBSequenceIx + 1) % 26;
+            for (int i = 0; i < SegmentObjs.Length; i++)
             {
-                if (!_isCycling)
-                {
-                    _currentRSequenceIx = (_currentRSequenceIx + 1) % 26;
-                    _currentGSequenceIx = (_currentGSequenceIx + 1) % 26;
-                    _currentBSequenceIx = (_currentBSequenceIx + 1) % 26;
-                    for (int i = 0; i < SegmentObjs.Length; i++)
-                    {
-                        var curVal = (_segmentArragements[_currentRSequenceIx][_rSegPositions[i]] ? 4 : 0) + (_segmentArragements[_currentGSequenceIx][_gSegPositions[i]] ? 2 : 0) + (_segmentArragements[_currentBSequenceIx][_bSegPositions[i]] ? 1 : 0);
-                        SegmentObjs[i].GetComponent<MeshRenderer>().material = SegmentMats[curVal];
-                        ColorblindSegTexts[i].text = "KBGCRMYW"[curVal].ToString();
-                        ColorblindSegTexts[i].color = (curVal == 0 || curVal == 1) ? new Color(1, 1, 1) : new Color(0, 0, 0);
-                    }
-                }
+                var curVal = (_segmentArragements[_currentRSequenceIx][_rSegPositions[i]] ? 4 : 0) + (_segmentArragements[_currentGSequenceIx][_gSegPositions[i]] ? 2 : 0) + (_segmentArragements[_currentBSequenceIx][_bSegPositions[i]] ? 1 : 0);
+                SegmentObjs[i].GetComponent<MeshRenderer>().material = SegmentMats[curVal];
+                ColorblindSegTexts[i].text = "KBGCRMYW"[curVal].ToString();
+                ColorblindSegTexts[i].color = (curVal == 0 || curVal == 1) ? new Color(1, 1, 1) : new Color(0, 0, 0);
             }
             return false;
         };
@@ -188,10 +179,8 @@ public class Faulty14SegmentDisplayScript : MonoBehaviour
             return false;
         var correct = new int[14];
         for (int i = 0; i < 14; i++)
-        {
             if (_rSegPositions[i] != i || _gSegPositions[i] != i || _bSegPositions[i] != i)
                 correct[i] = 1;
-        }
         Debug.LogFormat("[Faulty 14 Segment Display #{0}] Submitted red segments: {1}", _moduleId, _rSegPositions.Select(i => i + 1).Join(" "));
         Debug.LogFormat("[Faulty 14 Segment Display #{0}] Submitted green segments: {1}", _moduleId, _gSegPositions.Select(i => i + 1).Join(" "));
         Debug.LogFormat("[Faulty 14 Segment Display #{0}] Submitted blue segments: {1}", _moduleId, _bSegPositions.Select(i => i + 1).Join(" "));
@@ -208,7 +197,6 @@ public class Faulty14SegmentDisplayScript : MonoBehaviour
         }
         else
         {
-            ;
             StartCoroutine(SolveAnimation());
             Debug.LogFormat("[Faulty 14 Segment Display #{0}] All color channels have been correctly swapped. Module solved.", _moduleId);
         }
@@ -379,7 +367,7 @@ public class Faulty14SegmentDisplayScript : MonoBehaviour
         var commands = new List<TpCommand>();
         Match m;
 
-        if ((m = Regex.Match(command, @"^\s*colou?rblind\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)).Success || (m = Regex.Match(command, @"^\s*cb\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)).Success)
+        if ((Regex.Match(command, @"^\s*colou?rblind\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)).Success || (m = Regex.Match(command, @"^\s*cb\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)).Success)
         {
             yield return null;
             _colorblindMode = !_colorblindMode;
